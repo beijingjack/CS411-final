@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="GET" action="{% url 'movie:search' %}">
+    <input name="q" value="{{request.GET.q}}" placeholder="search...">
+    <button class="btn btn-success" type="submit">
+         Search
+    </button>
+</form>
+<br>
+<font size="4">Latest 100 movies</font>
+{% for obj in object_list %}
+<p><a href="{% url 'movie:movie_detail' pk=obj.pk %}">{{obj.title}}</a></p>
+{% endfor %}
+{% endblock %}

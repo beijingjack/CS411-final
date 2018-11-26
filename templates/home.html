@@ -1,0 +1,23 @@
+<!-- templates/home.html-->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  <h1>Hi {{ user.username }}!</h1>
+  <font size="6">Welcome to House of Movies</font>
+  <p><a href="{% url 'movie:movie_list' %}">search</a></p>
+  <p><a href="{% url 'logout' %}">logout</a></p>
+
+{% else %}
+  <h1>Please login here</h1>
+  <a href="{% url 'login' %}">login</a>
+  <p>New user?</p>
+  <a href="{% url 'signup' %}">signup</a>
+{% endif %}
+{% endblock %}
+
+
+
+

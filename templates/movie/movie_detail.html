@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{object.title}}</h1>
+<p>Genre: {{object.genre}}</p>
+<p>Year: {{object.year}}</p>
+<p>Director: {{object.director}}</p>
+<p>Average Rating: {{object.rating}}</p>
+<p><a href="{% url 'movie:movie_list' %}">Continue Searching...</a></p>
+
+<p><a href="{% url 'movie:movie_comment' pk=object.pk %}">Make a comment about this movie</a></p>
+
+<br>
+
+
+<font size="6">Previous comments about this movie:</font>
+<p><a href="{% url 'movie:edit_comment' pk=object.pk %}">Edit your comment(s) for this movie</a></p>
+<p><a href="{% url 'movie:delete_comment' pk=object.pk %}">Delete your comment(s) for this movie</a></p>
+
+{% for comm in comment_list %}
+    <p>{{comm.comments}}</p>
+    <br>
+{% endfor %}
+
+
+
+{% endblock %}
