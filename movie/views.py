@@ -5,6 +5,18 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django import forms
 from .forms import RatingForm
+from .sentiment_analysis import predict_sentiment
+from .word_to_id import get_ids
+import nltk
+import numpy as np
+from .scrape import findmovie
+
+def new_release(request):
+    template = 'movie/new_release.html'
+    d = findmovie()
+    context = {'dictionary' : d}
+    return render(request, template, context)
+
 
 class MovieListView(ListView):
     model = Movie
@@ -59,10 +71,22 @@ def new_comment(request, pk):
             user_instance = AuthUser.objects.get(username=request.user.username).username
             movie_instance = Movie.objects.get(movie_id=pk)
             comment_instance = Rating.objects.get(comment_id = post.comment_id)
+            #####get the actual comment
+            #actual_comment = comment_instance.comments #### new
             ratemovie_instance = RateMovie()
+            #####Tokenize the comment
+            #comment = nltk.word_tokenize(actual_comment) #### new
+            #comment = [w.lower() for w in comment] # new
+            #comment_token_ids = get_ids(comment) # new
+            #x_input = [] # new
+            #x_input.append(comment_token_ids) # new
+            #attitude_pred = predict_sentiment(x_input) # new
+
+             ####Need to store the attitude to the table
             ratemovie_instance.username = user_instance
             ratemovie_instance.movie = movie_instance
-            ratemovie_instance.comment = comment_instance
+            ratemovie_instance.comment = comment_instance# new
+            #ratemovie_instance.attitude = attitude_pred
             ratemovie_instance.save()
             return redirect('/')
 

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<font size="4">Movie Information</font>
+{% for theater, dict2 in dictionary.items %}
+    <p>Theater: {{theater}}</p>
+    {% for movie, showtimes in dict2.items %}
+        <p>Movie: {{movie}}</p>
+        <p>ShowTimes: {{showtimes}}</p>
+{% endfor %}
+{% endfor %}
+{% endblock %}

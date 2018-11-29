@@ -30,10 +30,12 @@ class Movie(models.Model):
         managed = False
         db_table = 'Movie'
 
+
 class RateMovie(models.Model):
     username = models.CharField(max_length=250)
     movie = models.ForeignKey(Movie, models.DO_NOTHING, db_column='Movie_ID')  # Field name made lowercase.
     comment = models.ForeignKey('Rating', models.DO_NOTHING, db_column='Comment_ID', primary_key=True)  # Field name made lowercase.
+    attitude = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
