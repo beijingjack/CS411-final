@@ -3,7 +3,6 @@ from requests import get
 from bs4 import BeautifulSoup
 import unicodedata
 
-tconsts = ['tt0000009', 'tt0000147', 'tt0000335', 'tt0000574', 'tt0000739']
 def findMovie(arr):
     headers = {"Accept-Language": "en-US, en;q=0.5"}
     pages = [str(i) for i in range(1,2)]
@@ -23,7 +22,6 @@ def findMovie(arr):
             # Parse the content of the request with BeautifulSoup
             page_html = BeautifulSoup(response.text, 'html.parser')
 
-            # Select all the 50 movie containers from a single page
             container = page_html.find('div', class_ = 'title_wrapper')
 
             # Scrape the name
@@ -42,12 +40,10 @@ def findMovie(arr):
 
             # Scrape the number of votes
             vote = (page_html.find('div', class_ = 'imdbRating').a.text)
-            votes.append(int(vote))
+            votes.append(vote)
 
     movie_ratings = {'movie': names,
                                   'year': years,
                                   'imdb': imdb_ratings,
                                   'votes': votes}
     return movie_ratings
-
-print(findMovie(tconsts))

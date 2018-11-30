@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<font size="4">Recommended movies based on your favorite genre</font>
+{% for obj in object_list %}
+<p><a href="{% url 'movie:movie_detail' pk=obj.pk %}">{{obj.title}}</a></p>
+{% endfor %}
+{% endblock %}

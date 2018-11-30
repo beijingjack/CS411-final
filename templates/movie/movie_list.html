@@ -7,6 +7,9 @@
     </button>
 </form>
 <br>
+<p><a href="{% url 'movie:recommend_list' %}">See your movie recommendations</a></p>
+<p><a href="{% url 'movie:web_scrap' %}">See current rating for movies you rated</a></p>
+
 <font size="4">Latest 100 movies</font>
 {% for obj in object_list %}
 <p><a href="{% url 'movie:movie_detail' pk=obj.pk %}">{{obj.title}}</a></p>

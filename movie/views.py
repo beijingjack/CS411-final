@@ -8,13 +8,7 @@ from .forms import RatingForm
 from .sentiment_analysis import predict_sentiment
 from .vectorize_comment import get_vector
 import numpy as np
-#from .scrape import findmovie
-
-# def new_release(request):
-#     template = 'movie/new_release.html'
-#     d = findmovie()
-#     context = {'dictionary' : d}
-#     return render(request, template, context)
+from .tconst_scrape import findMovie
 
 
 class MovieListView(ListView):
@@ -58,6 +52,44 @@ def search(request):
         'object_list':results,
     }
     return render(request, template, context)
+
+def mode(my_list):
+    from collections import Counter
+    ct = Counter(my_list)
+    max_value = max(ct.values())
+    return sorted(key for key, value in ct.items() if value == max_value)
+
+def recommend(request):
+    template = 'movie/recommend.html'
+    pos_movie_list = RateMovie.objects.filter(username=request.user.username, attitude=1)
+    pos_movie_genre_list = []
+    for i in range(len(pos_movie_list)):
+        pos_movie_id = pos_movie_list[i].movie.movie_id
+        pos_movie_genre = Movie.objects.get(movie_id=pos_movie_id).genre
+        pos_movie_genre_list.append(pos_movie_genre)
+    fav_genre = mode(pos_movie_genre_list)[0]
+
+    result = Movie.objects.filter(genre=fav_genre).order_by('-rating')[:100]
+
+    context = {
+        'object_list': result,
+    }
+    return render(request, template, context)
+
+def webscrap(request):
+    template = 'movie/webscrap.html'
+    tmp_list = RateMovie.objects.filter(username=request.user.username)
+    tconst_list = []
+    for i in range(len(tmp_list)):
+        tconst_num = tmp_list[i].movie.tconst
+        tconst_list.append(tconst_num)
+    movie_dict = findMovie(tconst_list)
+    context = {
+        'dictionary': movie_dict
+    }
+
+    return render(request, template, context)
+
 
 
 

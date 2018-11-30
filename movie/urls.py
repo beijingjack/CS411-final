@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf.urls import url
 from . import views
-from .views import search, new_comment, MovieDetail, edit_comment, delete_comment#, new_release
+from .views import search, new_comment, MovieDetail, edit_comment, delete_comment, recommend, webscrap
 
 app_name = 'movie'
 
@@ -12,6 +12,7 @@ urlpatterns = [
     path('<int:pk>/comment/', new_comment, name='movie_comment'),
     path('<int:pk>/editcomment/', edit_comment, name='edit_comment'),
     path('<int:pk>/deletecomment/', delete_comment, name='delete_comment'),
-    #path('newrelease/', new_release, name='new_release'),
+    path('recommendation/', recommend, name='recommend_list'),
+    path('webscrap/', webscrap, name='web_scrap'),
 
 ]
