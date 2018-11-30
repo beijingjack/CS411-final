@@ -7,7 +7,6 @@
     </button>
 </form>
 <br>
-<p><a href="{% url 'movie:new_release'%}">Check New Release!!!</a></p>
 <font size="4">Latest 100 movies</font>
 {% for obj in object_list %}
 <p><a href="{% url 'movie:movie_detail' pk=obj.pk %}">{{obj.title}}</a></p>

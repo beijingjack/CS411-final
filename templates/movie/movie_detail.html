@@ -13,7 +13,7 @@
 
 
 <font size="6">Previous comments about this movie:</font>
-<p><a href="{% url 'movie:edit_comment' pk=object.pk %}">Edit your comment(s) for this movie</a></p>
+<p><a href="{% url 'movie:movie_comment' pk=object.pk %}">Edit your comment(s) for this movie</a></p>
 <p><a href="{% url 'movie:delete_comment' pk=object.pk %}">Delete your comment(s) for this movie</a></p>
 
 {% for comm in comment_list %}
