@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 <font size="4">More movie details based on the movie you commented on</font>
-{% for value in dictionary.values %}
-    {{ forloop.counter0}}
-        <p> Summary: {{value}}</p>
-    <br>
+{% for key, dict2 in dictionary.items %}
+    {% for key2, val in dict2.items %}
+        <p>{{key2}}: {{val}}</p>
+{% endfor %}
+<br>
 {% endfor %}
 {% endblock %}
